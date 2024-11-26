@@ -1,115 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-const HeaderSection = ({ setFilter, filter }) => {
-  const [isOpen, setIsOpen] = useState(false);
+import { Button, Menu, MenuItem, Typography, Box } from "@mui/material";
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+const HeaderSection = ({ setFilter, filter }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const toggleDropdown = (event) => {
+    setAnchorEl(event.currentTarget); // Opens menu on button click
   };
-  const closeDropdown=()=>{
-    if(open)setIsOpen(false)
-  }
+
+  const closeDropdown = () => {
+    setAnchorEl(null); // Closes menu
+  };
+
+  const handleFilterChange = (genre) => {
+    setFilter(genre);
+    closeDropdown();
+  };
 
   return (
-    <section className="jumbotron text-center">
-      <div className="container">
-        <h1 className="jumbotron-heading mt-2">One store for every book</h1>
-        <p className="lead text-muted">
+    <Box className="jumbotron text-center" py={4}>
+      <Box className="container">
+        <Typography variant="h4" mt={2} gutterBottom>
+          One store for every book
+        </Typography>
+        <Typography variant="body1" color="textSecondary" mb={3}>
           Read your favourite book for free{" "}
-          <Link to={"/viewOffers"}>
-            <small>try premium</small>
-          </Link>
-        </p>
-        <div className="container mt-5">
-          <h2>Select a Book Genre</h2>
-          <div className="dropdown d-flex justify-content-center">
-            <button
-              className="btn btn-primary dropdown-toggle mb-3"
-              type="button"
-              id="dropdownMenuButton"
-              aria-expanded={isOpen ? "true" : "false"}
-              onClick={toggleDropdown} // Toggle dropdown on click
+        </Typography>
+
+        <Box className="container mt-5">
+          <Typography variant="h5">Select a Book Genre</Typography>
+          <Box display="flex" justifyContent="center" mt={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={toggleDropdown}
+              sx={{ marginBottom: 2 }}
             >
               Choose Genre
-            </button>
+            </Button>
             {filter && (
-              <button
+              <Button
+                variant="outlined"
+                color="secondary"
                 onClick={() => {
                   setFilter(null);
                   closeDropdown();
-                }} // Trigger reset action
-                className="btn btn-secondary mb-3"
+                }}
+                sx={{ marginLeft: 2, marginBottom: 2 }}
               >
                 Unfilter
-              </button>
+              </Button>
             )}
-            <ul
-              className={`dropdown-menu mt-5 ${isOpen ? "show" : ""}`}
-              aria-labelledby="dropdownMenuButton"
-            >
-              <li>
-                <p
-                  className="dropdown-item m-0"
-                  onClick={() => {
-                    setFilter("Fiction");
-                    toggleDropdown();
-                  }}
-                >
-                  Fiction
-                </p>
-              </li>
+          </Box>
 
-              <li>
-                <p
-                  className="dropdown-item m-0"
-                  onClick={() => {
-                    setFilter("Romance");
-                    toggleDropdown();
-                  }}
-                >
-                  Romance
-                </p>
-              </li>
-              <li>
-                <p
-                  className="dropdown-item m-0"
-                  onClick={() => {
-                    setFilter("Non-fiction");
-                    toggleDropdown();
-                  }}
-                >
-                  Non-fiction
-                </p>
-              </li>
-              <li>
-                <p
-                  className="dropdown-item m-0"
-                  onClick={() => {
-                    setFilter("Biography");
-                    toggleDropdown();
-                  }}
-                >
-                  Biography
-                </p>
-              </li>
-
-              <li>
-                <p
-                  className="dropdown-item m-0"
-                  onClick={() => {
-                    setFilter("Self-help");
-                    toggleDropdown();
-                  }}
-                >
-                  Self-help
-                </p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+          {/* MUI Menu for dropdown */}
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={closeDropdown}
+            MenuListProps={{ onMouseLeave: closeDropdown }} // Close on mouse leave
+          >
+            {["Fiction", "Mathematics", "Religion", "Juvenile Fiction", "History"].map((genre) => (
+              <MenuItem
+                key={genre}
+                onClick={() => handleFilterChange(genre)}
+              >
+                {genre}
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

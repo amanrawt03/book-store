@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BookItem from "./BookItem";
-const BookList = ({bookList}) => {
+import { Grid2, Box, Container } from "@mui/material";
+
+const BookList = ({ bookList }) => {
   return (
-    <div className="album py-5 bg-light">
-      <div className="container">
-        <div className="row">
-          {bookList.length !==0 &&
-            bookList.map((book) => {
-              return <BookItem bookData={book} key={book.id}></BookItem>;
-            })}
-        </div>
-      </div>
-    </div>
+    <Box sx={{ py: 5, backgroundColor: "background.default" }}>
+      <Container>
+        {/* Using Grid2 container to display books in 3 per row */}
+        <Grid2 container spacing={4}>
+          {bookList.length !== 0 && 
+            bookList.map((book) => (
+              <Grid2 item xs={12} sm={6} md={4} key={book.id}>
+                <BookItem bookData={book} />
+              </Grid2>
+            ))}
+        </Grid2>
+      </Container>
+    </Box>
   );
 };
 
