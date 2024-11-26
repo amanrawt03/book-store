@@ -1,92 +1,51 @@
 {
-  "bookStore": [
+  "userInfo": [
     {
-      "id": 1,
-      "bookName": "To Kill a Mockingbird",
-      "author": "Harper Lee",
-      "displayContent": "A gripping novel about racial injustice in the Deep South.",
-      "bookCover": "https://m.media-amazon.com/images/I/81gepf1eMqL._SL1500_.jpg",
-      "genre": "Fiction",
-      "publishedYear": 1960,
-      "aboutBook": "To Kill a Mockingbird is a profound novel that explores the deep roots of racial injustice in the American South. It follows Scout Finch, a young girl growing up in Maycomb, Alabama, as her father, Atticus Finch, defends a black man wrongly accused of raping a white woman. Through Scout’s eyes, the novel explores themes of racism, empathy, and moral growth. The story challenges societal norms, showing the complexities of human nature in the face of prejudice.\n\nHarper Lee’s narrative, marked by sharp social commentary and powerful storytelling, goes beyond the story of one courtroom drama to encompass broader questions of right and wrong. At its heart, the book speaks to the idea of standing up for what is just, even when society is overwhelmingly opposed. The moral courage of characters like Atticus Finch remains an enduring symbol of justice and integrity.",
-      "aboutAuthor": "Harper Lee was an American author best known for her Pulitzer Prize-winning novel To Kill a Mockingbird. The book is a classic of modern American literature, addressing critical social issues of race and morality."
+      "username": "Aman Rawat",
+      "email": "amanrawat@gmail.com",
+      "password": "qwerty123",
+      "id": "08ef"
     },
     {
-      "id": 2,
-      "bookName": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "displayContent": "A novel that delves into issues of marriage and love.",
-      "bookCover": "https://m.media-amazon.com/images/I/81NLDvyAHrL._SL1500_.jpg",
-      "genre": "Romance",
-      "publishedYear": 1813,
-      "aboutBook": "Pride and Prejudice is a sharp critique of the social norms surrounding marriage in early 19th-century England. The story centers on Elizabeth Bennet, a smart and independent woman, and her evolving relationship with the wealthy and aloof Mr. Darcy. Through their journey, Austen explores themes of class, pride, prejudice, and personal growth.\n\nElizabeth’s initial misjudgment of Mr. Darcy evolves into deep admiration as she learns about his true character. The novel challenges the role of wealth and social status in love, while showcasing the importance of mutual respect and understanding in relationships. Austen’s wit and satire provide readers with both a love story and an incisive commentary on society.",
-       "aboutAuthor": "George Orwell was an English novelist, essayist, and journalist. His works, including 1984 and Animal Farm, have been celebrated for their profound critique of totalitarianism and their defense of personal freedoms."
+      "username": "Bhramin Jha",
+      "email": "bhramin09@gmail.com",
+      "password": "qwerty123",
+      "id": "0838"
     },
     {
-      "id": 3,
-      "bookName": "Becoming the first",
-      "author": "Michelle Obama",
-      "displayContent": "Memoir of Michelle Obama,life from the White House.",
-      "bookCover": "https://m.media-amazon.com/images/I/61ok5niDElL._SL1360_.jpg",
-      "genre": "Biography",
-      "publishedYear": 2018,
-      "aboutBook": "Becoming is Michelle Obama's deeply personal memoir that chronicles her journey from her humble beginnings in Chicago to becoming the First Lady of the United States. The book details her challenges, triumphs, and the personal experiences that shaped her identity. Michelle candidly reflects on the obstacles of racism, sexism, and expectations placed upon her as a public figure.\n\nThroughout the memoir, Obama emphasizes the importance of staying true to oneself and embracing one’s roots. Her story is one of resilience and empowerment, illustrating the significance of community, family, and the pursuit of one's dreams. Her powerful narrative encourages others to find their own path to becoming the best version of themselves.",
-      "aboutAuthor": "J.D. Salinger was an American writer best known for his novel The Catcher in the Rye. His work captures the alienation and emotional turmoil of adolescence, making his characters resonate with generations of readers."
+      "id": "dc94",
+      "name": "Keshav Jadhav",
+      "email": "keshking@gmail.com",
+      "password": "qwerty123"
     },
     {
-      "id": 4,
-      "bookName": "Habit is Power",
-      "author": "Charles Duhigg",
-      "displayContent": "An exploration of how habits are formed and how we can change them to improve our lives.",
-      "bookCover": "https://m.media-amazon.com/images/I/51CLjn1yzwL._SL1200_.jpg",
-      "genre": "Self-help",
-      "publishedYear": 2012,
-      "aboutBook": "In The Power of Habit, Charles Duhigg uncovers the science behind why we form habits and how they can be changed. Drawing from a wide range of research, Duhigg explores how habits impact our personal lives, workplaces, and even entire societies. He reveals how understanding and mastering habits can lead to personal success and transformation.\n\nDuhigg provides readers with practical tools to break bad habits and replace them with positive ones. He introduces the concept of the 'habit loop' and how understanding its components—cue, routine, and reward—can be used to transform one’s life. This book is a guide to understanding the invisible forces that shape our daily actions and how to harness that power for good.",
-      "aboutAuthor": "J.K. Rowling is a British author best known for creating the Harry Potter series, which has become one of the best-selling book series in history. Rowling’s imaginative storytelling and rich world-building have captivated readers of all ages."
+      "id": "67f9",
+      "name": "karan Singh",
+      "email": "ksm0990@gmail.com",
+      "password": "qwerty123"
     },
     {
-      "id": 5,
-      "bookName": "1984",
-      "author": "George Orwell",
-      "displayContent": "A dystopian novel about the dangers of totalitarianism and mass surveillance.",
-      "bookCover": "https://m.media-amazon.com/images/I/81fcLJo+FNL._SL1500_.jpg",
-      "genre": "Fiction",
-      "publishedYear": 1949,
-      "aboutBook": "1984 is George Orwell’s chilling depiction of a dystopian future where the government controls every aspect of life, from thoughts to actions. The story follows Winston Smith, a low-ranking member of the Party, who secretly rebels against the oppressive regime led by Big Brother. Through Winston’s eyes, Orwell explores the consequences of totalitarianism, mass surveillance, and the suppression of free thought.\n\nThe novel is a powerful warning about the dangers of unchecked power and the erosion of civil liberties. Orwell’s portrayal of a society stripped of individuality and freedom resonates today, as it challenges readers to consider the price of sacrificing personal autonomy for state control.",
-      "aboutAuthor": "Paula Hawkins is a British author, best known for her psychological thrillers. Her debut novel, The Girl on the Train, became an international bestseller and was adapted into a major motion picture."
+      "id": "a569",
+      "name": "Manan Singhania",
+      "email": "manansinghh@gmail.com",
+      "password": "qwerty123"
     },
     {
-      "id": 6,
-      "bookName": "Humankind",
-      "author": "Yuval Noah Harari",
-      "displayContent": "Exploring how Homo sapiens became the dominant species on Earth.",
-      "bookCover": "https://m.media-amazon.com/images/I/713jIoMO3UL._SL1500_.jpg",
-      "genre": "Non-fiction",
-      "publishedYear": 2011,
-      "aboutBook": "Sapiens by Yuval Noah Harari takes readers on a fascinating journey through the history of humankind, from the earliest days of Homo sapiens to the modern world. Harari examines the cognitive revolution that allowed humans to dominate the planet, the agricultural revolution that transformed societies, and the scientific revolution that reshaped our understanding of the universe.\n\nIn the book, Harari explores the forces that have shaped human culture, politics, and economics. He delves into complex issues like capitalism, imperialism, and the role of religion, offering new perspectives on how humanity has arrived at its current state. Sapiens challenges readers to reflect on what it means to be human and the future of our species.",
-      "aboutAuthor": "Yuval Noah Harari is an Israeli historian and professor at the Hebrew University of Jerusalem. His best-selling books, including Sapiens, Homo Deus, and 21 Lessons for the 21st Century, explore the intersection of history, science, and philosophy."
+      "id": "0d07",
+      "name": "Manisha Rawat",
+      "email": "manii9090@gmail.com",
+      "password": "qwerty123"
     },
     {
-      "id": 7,
-      "bookName": "4 Agreements",
-      "author": "Don Miguel Ruiz",
-      "displayContent": "A practical guide to personal freedom based on ancient Toltec wisdom.",
-      "bookCover": "https://m.media-amazon.com/images/I/91AfEwKjDgL._SL1500_.jpg",
-      "genre": "Self-help",
-      "publishedYear": 1997,
-      "aboutBook": "In The Four Agreements, Don Miguel Ruiz presents a code of conduct for achieving personal freedom and happiness. Based on ancient Toltec wisdom, the four agreements are: Be impeccable with your word, Don’t take anything personally, Don’t make assumptions, and Always do your best. By following these principles, Ruiz argues, we can break free from limiting beliefs and lead a life of peace and joy.\n\nThe book provides a straightforward and practical approach to achieving emotional and mental well-being. It encourages readers to take responsibility for their actions and thoughts, while letting go of self-limiting beliefs. The Four Agreements has inspired millions around the world to embrace a path of love, authenticity, and personal growth.",
-      "aboutAuthor": "Jane Austen was an English novelist known for her keen observations of 19th-century English society, especially in matters of love and marriage. Her works, including Pride and Prejudice, continue to captivate readers with their wit, romance, and social insight."
+      "id": "4999",
+      "name": "Mayank Tyagi",
+      "email": "mynkhehe@gmail.com",
+      "password": "qwerty123"
     },
     {
-      "id": 8,
-      "bookName": "Educated",
-      "author": "Tara Westover",
-      "displayContent": "A woman who grows up in a strict family and eventually escapes to find education.",
-      "bookCover": "https://m.media-amazon.com/images/I/71N2HZwRo3L._SL1500_.jpg",
-      "genre": "Biography",
-      "publishedYear": 2018,
-      "aboutBook": "Educated is Tara Westover’s memoir of growing up in a strict, survivalist family in rural Idaho. Raised in isolation and denied formal education, Westover eventually escapes her upbringing and embarks on a journey to earn a Ph.D. from the University of Cambridge. Her story is a powerful testament to the power of education, resilience, and self-determination.\n\nWestover’s narrative is a poignant exploration of the tension between family loyalty and the desire for personal growth. She describes the intense psychological and emotional struggles of breaking away from a controlling family while striving to create a life based on her own beliefs and values. Educated is a story of overcoming hardship, breaking free from the past, and discovering the transformative power of education.",
-      "aboutAuthor": "J.R.R. Tolkien was an English writer, professor, and philologist, best known for his epic fantasy works, including The Hobbit and The Lord of the Rings. Tolkien’s detailed world-building and complex characters have made him a foundational figure in fantasy literature."
+      "id": "9723",
+      "email": "ksm0990@gmail.com",
+      "password": "qwerty123"
     }
   ]
 }

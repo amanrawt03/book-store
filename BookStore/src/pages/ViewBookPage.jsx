@@ -1,7 +1,8 @@
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import SuggestedBook from "../components/SuggestedBook";
+import { Container, Grid2, Typography, Card, CardContent, CircularProgress, Box, CardMedia } from "@mui/material";
 
 const ViewBook = () => {
   const { id } = useParams();
@@ -12,10 +13,12 @@ const ViewBook = () => {
   const getBook = async () => {
     setLoading(true); // Start loading
     try {
-      const response = await axios.get("http://localhost:5000/bookStore");
-      const data = response.data; // Axios automatically parses JSON
+      // Fetching books from Google Books API
+      const response = await axios.get("https://www.googleapis.com/books/v1/volumes?q=book&key=AIzaSyBAsMAiNp8g1X6TDpcrc0vRQY4y5RFS3lo&maxResults=40");
+      const data = response.data.items || []; // Axios automatically parses JSON
+
       // Find the selected book based on the ID from the URL
-      const selectedBook = data.find((book) => book.id === Number(id));
+      const selectedBook = data.find((book) => book.id === id);
       if (selectedBook) {
         setBook(selectedBook);
       }
@@ -25,7 +28,7 @@ const ViewBook = () => {
         let randomIndex;
         do {
           randomIndex = Math.floor(Math.random() * data.length);
-        } while (data[randomIndex].id === Number(id)); // Exclude the selected book
+        } while (data[randomIndex].id === id); // Exclude the selected book
         return randomIndex;
       };
 
@@ -39,7 +42,6 @@ const ViewBook = () => {
       }
 
       setBookSuggestion(suggestionArr);
-
     } catch (error) {
       console.error("Error fetching book data:", error);
     }
@@ -52,65 +54,111 @@ const ViewBook = () => {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <p>Loading book details...</p>
-        {/* Optionally show a spinner */}
-      </div>
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
     );
   }
 
   // Safely render the book data if available
   if (!book) {
-    return <p>Book not found.</p>; // Render this if no book is found (edge case handling)
+    return <Typography variant="h5" color="error" align="center">Book not found.</Typography>;
   }
 
+  // Destructure book data to avoid deep chaining repeatedly
+  const { volumeInfo, searchInfo } = book;
+  const {
+    title = "No Title Available",
+    authors = ["Unknown Author"],
+    publisher = "Unknown Publisher",
+    publishedDate = "Unknown Publication Date",
+    description = "No Description Available",
+    imageLinks = {},
+    pageCount,
+  } = volumeInfo || {};
+
+  // Extract the "Part which readers liked the most" from the searchInfo's textSnippet
+  const readersLiked = searchInfo?.textSnippet || "No specific part that readers liked the most.";
+
   return (
-    <main className="container">
-      <div className="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-        <div className="col-lg-6 px-0">
-          <h1 className="display-4 fst-italic">
-            {book.bookName}
-          </h1>
-          <p className="lead my-3">{book.displayContent}</p>
-        </div>
-      </div>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Grid2 container spacing={4}>
+        {/* Left Column: Book Details */}
+        <Grid2 item xs={12} md={8}>
+          <Card sx={{ boxShadow: 3 }}>
+            <CardContent>
+              <Typography variant="h3" gutterBottom>
+                {title}
+              </Typography>
+              {imageLinks?.thumbnail && (
+                <CardMedia
+                  component="img"
+                  alt={title}
+                  image={imageLinks.thumbnail}
+                  sx={{ width: 150, height: 200, objectFit: 'cover', borderRadius: 1, mb: 2 }}
+                />
+              )}
+              <Typography variant="h6" color="textSecondary">
+                {description}
+              </Typography>
+              <Typography variant="body1">
+                Published on: {publishedDate} | Pages: {pageCount || "N/A"}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Author(s):</strong> {authors.join(", ")}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                <strong>Publisher:</strong> {publisher}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid2>
 
-      <div className="row g-5">
-        <div className="col-md-8">
-          <h3 className="pb-4 mb-4 fst-italic border-bottom">
-            From {book.author}
-          </h3>
+        {/* Right Column: Readers Liked the Most and Suggested Books */}
+        <Grid2 item xs={12} md={4}>
+          <Card sx={{ boxShadow: 3 }}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Readers Liked the Most
+              </Typography>
+              {/* Display the textSnippet (what readers liked the most) */}
+              <Typography variant="body2" color="textSecondary" paragraph>
+                {readersLiked}
+              </Typography>
+            </CardContent>
+          </Card>
 
-          <article className="blog-post">
-            {book.aboutBook}
-          </article>
-        </div>
-
-        <div className="col-md-4">
-          <div className="position-sticky" style={{ top: "2rem" }}>
-            <div className="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 className="fst-italic">About the Author</h4>
-              <p className="mb-0">{book.aboutAuthor}</p>
-            </div>
-
-            <div>
-              <h4 className="fst-italic">Read other books</h4>
-              <ul className="list-unstyled">
+          {/* Suggested Books */}
+          <Card sx={{ boxShadow: 3, mt: 2 }}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Read other books
+              </Typography>
+              <Grid2 container spacing={2}>
                 {bookSuggestion.length === 3 ? (
                   bookSuggestion.map((suggestedBook) => (
-                    <li key={suggestedBook.id}>
+                    <Grid2 item xs={12} sm={6} key={suggestedBook.id}>
                       <SuggestedBook bookData={suggestedBook} />
-                    </li>
+                    </Grid2>
                   ))
                 ) : (
-                  <p>Loading suggestions...</p>
+                  <Typography variant="body2">Loading suggestions...</Typography>
                 )}
-              </ul>
-            </div>
+              </Grid2>
+            </CardContent>
+          </Card>
+        </Grid2>
+      </Grid2>
 
-            <div className="p-4">
-              <h4 className="fst-italic">Find us on</h4>
-              <ol className="list-unstyled">
+      {/* Social Media Links */}
+      <Grid2 container spacing={4} sx={{ mt: 4 }}>
+        <Grid2 item xs={12}>
+          <Card sx={{ boxShadow: 3 }}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Find us on
+              </Typography>
+              <ul>
                 <li>
                   <a href="#">GitHub</a>
                 </li>
@@ -120,12 +168,12 @@ const ViewBook = () => {
                 <li>
                   <a href="#">Facebook</a>
                 </li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+              </ul>
+            </CardContent>
+          </Card>
+        </Grid2>
+      </Grid2>
+    </Container>
   );
 };
 
