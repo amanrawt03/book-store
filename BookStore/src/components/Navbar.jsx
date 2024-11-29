@@ -18,14 +18,14 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../slice/userSlice";
 import { clear_cart } from "../slice/cartSlice";
-
+import '../styleSheet/Navbar.css'
 const Navbar = ({ searchBookFn, cartItemCount }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   let user = useSelector((state) => JSON.parse(state.user.username));
-  let cart = useSelector(state => state.cart.cartArray);
-  
+  let cart = useSelector((state) => state.cart.cartArray);
+
   // Search input handler
   const handleOnChange = (e) => {
     searchBookFn(e.target.value);
@@ -39,12 +39,7 @@ const Navbar = ({ searchBookFn, cartItemCount }) => {
 
   return (
     <AppBar position="sticky" color="primary">
-      <Toolbar
-        sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      <Toolbar>
         {/* Logo/Brand Name */}
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Book Store
@@ -57,8 +52,7 @@ const Navbar = ({ searchBookFn, cartItemCount }) => {
             size="small"
             placeholder="Search by title, author, publisher or ISBN"
             onChange={handleOnChange}
-            
-            sx={{ width: '400px', marginRight:'350px' }}
+            sx={{ width: "400px", marginRight: "350px" }}
             slotProps={{
               input: {
                 endAdornment: (

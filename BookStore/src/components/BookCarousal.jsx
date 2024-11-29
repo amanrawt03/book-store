@@ -24,10 +24,9 @@ const BookCarousal = ({ currentBook }) => {
   const getSimilarItems = () => {
     axios
       .get(
-        `https://www.googleapis.com/books/v1/volumes/?q=subject:${genre}&key=AIzaSyDZM1wVAo6gCblQdxUjIcDlKqbXl6w31FM`
+        `https://www.googleapis.com/books/v1/volumes/?q=subject:${genre}&key=AIzaSyCkS0j6hAV0oA1H4CyBVWJhk5yDN-g8KXw`
       )
       .then((res) => {
-        console.log(res.data.totalItems);
         if (res.data.totalItems === 0) setIsEmpty(true);
         else {
           const book = res.data.items;

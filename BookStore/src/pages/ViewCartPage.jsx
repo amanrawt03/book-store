@@ -77,7 +77,6 @@ const ViewCartPage = () => {
           </TableHead>
           <TableBody>
             {cart.map((item) => {
-              console.log(item)
               const price = item.volumeInfo.pageCount * 3; // Price based on pageCount
               const totalPrice = price * item.quantity; // Total price for the item
               return (

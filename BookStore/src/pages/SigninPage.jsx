@@ -38,31 +38,22 @@ function SigninPage() {
     setLoading(true);
     setError("");
   
-    // Make the API request to get the user info
+    // Send the login data to the server
     axios
-      .get("http://localhost:5000/userInfo")  // Correct API endpoint for user data
+      .post("http://localhost:3000/api/auth/login", formData, {withCredentials: true, }) // Send form data in the request body
       .then((response) => {
-        // Find the user by email and password from the response
-        const user = response.data.find(
-          (user) => user.email === formData.email && user.password === formData.password
-        );
-  
-        if (user) {
-          dispatch(login({ username: user.name }));  // Safely access username or name
-          navigate("/");  // Navigate to the homepage or desired page
-        } else {
-          // Handle invalid credentials
-          setError("Invalid email or password");
-        }
-  
-        setLoading(false);
+        console.log(response.data.user)
+        const { user } = response.data;
+        dispatch(login({ username: user.username }));  // Dispatch to Redux store
+        navigate("/");  // Navigate to the homepage or desired page
       })
       .catch((error) => {
         console.error("There was an error!", error);
         setLoading(false);
-        setError("Invalid credentials or server error");
+        setError(error.response?.data?.message || "An error occurred");
       });
   };
+  
   
 
   return (

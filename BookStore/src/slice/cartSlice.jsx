@@ -12,11 +12,12 @@ const cartSlice = createSlice({
   reducers: {
     // Add book to the cart or increase quantity if it already exists
     add_book: (state, action) => {
-      const {newBook, quantity }= action.payload
+      const {newBook, quantity}= action.payload
       const existingBook = state.cartArray.find(book => newBook.id === book.id);
 
       if (existingBook) {
-        existingBook.quantity += 1;
+        const num = Number(quantity)
+        existingBook.quantity += num;
       } else {
         state.cartArray.push({ ...newBook, quantity: quantity });
       }
