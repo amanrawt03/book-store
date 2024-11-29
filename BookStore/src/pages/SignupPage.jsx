@@ -5,13 +5,19 @@ import {
   TextField,
   Button,
   Typography,
-  Grid,
+  Grid2,
   Paper,
   InputAdornment,
 } from "@mui/material";
-import { Email as EmailIcon, Lock as LockIcon, Person as PersonIcon } from "@mui/icons-material";
+import {
+  Email as EmailIcon,
+  Lock as LockIcon,
+  Person as PersonIcon,
+} from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../slice/userSlice";
 
 function SignupPage() {
   const [formData, setFormData] = useState({
@@ -21,6 +27,7 @@ function SignupPage() {
   });
   const [error, setError] = useState(null); // Error message for user existence
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -31,7 +38,9 @@ function SignupPage() {
 
   const checkIfUserExists = async (email) => {
     try {
-      const response = await axios.get(`http://localhost:5000/userInfo?email=${email}`);
+      const response = await axios.get(
+        `http://localhost:5000/userInfo?email=${email}`
+      );
       return response.data.length > 0;
     } catch (error) {
       console.error("Error checking user:", error);
@@ -51,7 +60,8 @@ function SignupPage() {
       // If user doesn't exist, create the new user
       try {
         await axios.post("http://localhost:5000/userInfo", formData);
-        navigate("/signin");
+        dispatch(login({ username: formData.name }));
+        navigate("/");
       } catch (error) {
         console.error("Error during user registration:", error);
         setError("An error occurred during registration.");
@@ -62,20 +72,30 @@ function SignupPage() {
   return (
     <Container maxWidth="xs" sx={{ mt: 10 }}>
       <Paper elevation={4} sx={{ padding: 4, borderRadius: 3 }}>
-        <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2" }}>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          sx={{ fontWeight: "bold", color: "#1976d2" }}
+        >
           Sign Up
         </Typography>
 
         {error && (
-          <Typography color="error" variant="body2" align="center" sx={{ marginBottom: 2, fontSize: '14px' }}>
+          <Typography
+            color="error"
+            variant="body2"
+            align="center"
+            sx={{ marginBottom: 2, fontSize: "14px" }}
+          >
             {error}
           </Typography>
         )}
 
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+          <Grid2 container spacing={2}>
             {/* Full Name Field */}
-            <Grid item xs={12}>
+            <Grid2 xs={12}>
               <TextField
                 fullWidth
                 label="Full Name"
@@ -106,10 +126,10 @@ function SignupPage() {
                   },
                 }}
               />
-            </Grid>
+            </Grid2>
 
             {/* Email Field */}
-            <Grid item xs={12}>
+            <Grid2 xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -141,10 +161,10 @@ function SignupPage() {
                   },
                 }}
               />
-            </Grid>
+            </Grid2>
 
             {/* Password Field */}
-            <Grid item xs={12}>
+            <Grid2 xs={12}>
               <TextField
                 fullWidth
                 label="Password"
@@ -176,10 +196,10 @@ function SignupPage() {
                   },
                 }}
               />
-            </Grid>
+            </Grid2>
 
             {/* Link to Sign In Page */}
-            <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <Grid2 xs={12} sx={{ textAlign: "center" }}>
               <Typography variant="body2">
                 Already have an account?{" "}
                 <Link
@@ -187,7 +207,7 @@ function SignupPage() {
                   component={Link}
                   sx={{
                     fontSize: "14px",
-                    color: "#1976d2",
+                    color: "#2E1B57",
                     textDecoration: "none",
                     "&:hover": {
                       textDecoration: "underline",
@@ -198,20 +218,26 @@ function SignupPage() {
                   Sign In
                 </Link>
               </Typography>
-            </Grid>
+            </Grid2>
 
-            {/* Sign Up Button */}
-            <Grid item xs={12}>
+            {/* Sign Up Button in a Separate Row */}
+            <Grid2 xs={12}>
+              {/* <br></br>
+              <br></br> */}
+
               <Button
                 type="submit"
                 variant="contained"
-                fullWidth
+                // fullWidth
                 color="primary"
                 sx={{
                   padding: "12px",
                   borderRadius: "8px",
                   fontWeight: "bold",
                   fontSize: "16px",
+                  marginLeft: '120px',
+                  // minWidth:'60px',
+                  marginRight:'108px',
                   "&:hover": {
                     backgroundColor: "#1565c0",
                   },
@@ -222,8 +248,8 @@ function SignupPage() {
               >
                 Sign Up
               </Button>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </form>
       </Paper>
     </Container>
