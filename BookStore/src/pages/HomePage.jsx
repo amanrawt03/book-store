@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
-import BannerCarousal from "../components/BannerCarousal";
+// import BannerCarousal from "../components/BannerCarousal";
 
 // Lazy load components
 const BookList = lazy(() => import("../components/BookList"));
@@ -94,7 +94,6 @@ const HomePage = () => {
       <Navbar searchBookFn={handleSearchBook} />
       <main role="main">
         <HeaderSection filterBooks={handleSearchBook} />
-        <BannerCarousal/>
         <Suspense fallback={<Loading />}>
           <BookList bookList={bookList} />
         </Suspense>

@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../slice/userSlice";
 import { clear_cart } from "../slice/cartSlice";
 import '../styleSheet/Navbar.css'
+import OffersCarousal from "./OffersCarousal";
 const Navbar = ({ searchBookFn, cartItemCount }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const Navbar = ({ searchBookFn, cartItemCount }) => {
 
   return (
     <AppBar position="sticky" color="primary">
+      <OffersCarousal color="#FF0000"/>
       <Toolbar>
         {/* Logo/Brand Name */}
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
