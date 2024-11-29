@@ -5,7 +5,7 @@ import {
   TextField,
   Button,
   Typography,
-  Grid,
+  Grid2,
   Paper,
   InputAdornment,
   Link as MuiLink,
@@ -38,37 +38,28 @@ function SigninPage() {
     setLoading(true);
     setError("");
   
-    // Make the API request to get the user info
+    // Send the login data to the server
     axios
-      .get("http://localhost:5000/userInfo")  // Correct API endpoint for user data
+      .post("http://localhost:3000/api/auth/login", formData, {withCredentials: true, }) // Send form data in the request body
       .then((response) => {
-        // Find the user by email and password from the response
-        const user = response.data.find(
-          (user) => user.email === formData.email && user.password === formData.password
-        );
-  
-        if (user) {
-          dispatch(login({ username: user.username || user.name }));  // Safely access username or name
-          navigate("/");  // Navigate to the homepage or desired page
-        } else {
-          // Handle invalid credentials
-          setError("Invalid email or password");
-        }
-  
-        setLoading(false);
+        console.log(response.data.user)
+        const { user } = response.data;
+        dispatch(login({ username: user.username }));  // Dispatch to Redux store
+        navigate("/");  // Navigate to the homepage or desired page
       })
       .catch((error) => {
         console.error("There was an error!", error);
         setLoading(false);
-        setError("Invalid credentials or server error");
+        setError(error.response?.data?.message || "An error occurred");
       });
   };
   
+  
 
   return (
-    <Container maxWidth="xs" sx={{ mt: 10 }}>
+    <Container maxWidth="xs" sx={{ mt: 10, padding:'100px' }}>
       <Paper elevation={4} sx={{ padding: 4, borderRadius: 3 }}>
-        <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2" }}>
+        <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2", mb:'25px'}}>
           Sign In
         </Typography>
 
@@ -79,9 +70,9 @@ function SigninPage() {
         )}
 
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+          <Grid2 container spacing={2}>
             {/* Email Field */}
-            <Grid item xs={12}>
+            <Grid2 xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -113,10 +104,10 @@ function SigninPage() {
                   },
                 }}
               />
-            </Grid>
+            </Grid2>
 
             {/* Password Field */}
-            <Grid item xs={12}>
+            <Grid2 xs={12}>
               <TextField
                 fullWidth
                 label="Password"
@@ -148,16 +139,16 @@ function SigninPage() {
                   },
                 }}
               />
-            </Grid>
+            </Grid2>
 
             {/* Link to Signup Page */}
-            <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <Grid2 xs={12} sx={{ textAlign: "center" }}>
               <MuiLink
                 to="/signup"
                 component={Link}
                 sx={{
                   fontSize: "14px",
-                  color: "#1976d2",
+                  color: "#2E1B57",
                   textDecoration: "none",
                   "&:hover": {
                     textDecoration: "underline",
@@ -167,33 +158,34 @@ function SigninPage() {
               >
                 Create a new account
               </MuiLink>
-            </Grid>
+            </Grid2>
+          </Grid2>
 
-            {/* Sign In Button */}
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                color="primary"
-                sx={{
-                  padding: "12px",
-                  borderRadius: "8px",
-                  fontWeight: "bold",
-                  fontSize: "16px",
-                  "&:hover": {
-                    backgroundColor: "#1565c0",
-                  },
-                  "&:disabled": {
-                    backgroundColor: "#e0e0e0",
-                  },
-                }}
-                disabled={loading}
-              >
-                {loading ? "Signing In..." : "Sign In"}
-              </Button>
-            </Grid>
-          </Grid>
+          {/* Sign In Button on Separate Line */}
+          <Grid2 xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              color="primary"
+              sx={{
+                mt:'10px',
+                padding: "10px",
+                borderRadius: "8px",
+                fontWeight: "bold",
+                fontSize: "16px",
+                "&:hover": {
+                  backgroundColor: "#1565c0",
+                },
+                "&:disabled": {
+                  backgroundColor: "#e0e0e0",
+                },
+              }}
+              disabled={loading}
+            >
+              {loading ? "Signing In..." : "Sign In"}
+            </Button>
+          </Grid2>
         </form>
       </Paper>
     </Container>

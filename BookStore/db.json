@@ -46,6 +46,30 @@
       "id": "9723",
       "email": "ksm0990@gmail.com",
       "password": "qwerty123"
+    },
+    {
+      "id": "86f6",
+      "name": "Shivam Balsuriya",
+      "email": "svmbalsuriya@gmail.com",
+      "password": "qwerty123"
+    },
+    {
+      "id": "af97",
+      "name": "Kumar Vijay",
+      "email": "kmvijay7788@gmail.com",
+      "password": "qwerty123"
+    },
+    {
+      "id": "ff0d",
+      "name": "Sambhavi Mishra",
+      "email": "smbhaaavi1010@gmail.com",
+      "password": "qwerty123"
+    },
+    {
+      "id": "4ab0",
+      "name": "Manoj",
+      "email": "manoj@gmail.com",
+      "password": "Am@n2003"
     }
   ]
 }
