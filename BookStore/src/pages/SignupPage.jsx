@@ -19,13 +19,24 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../slice/userSlice";
 
+// Regex for password validation
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+const emailRegex =
+  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 function SignupPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
   const [error, setError] = useState(null); // Error message for user existence
+  const [emailError, setEmailError] = useState(""); // Email error message
+  const [passwordError, setPasswordError] = useState(""); // Password error message
+  const [confirmPasswordError, setConfirmPasswordError] = useState(""); // Confirm Password error message
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,6 +47,7 @@ function SignupPage() {
     });
   };
 
+  // Check if the user already exists
   const checkIfUserExists = async (email) => {
     try {
       const response = await axios.get(
@@ -48,8 +60,48 @@ function SignupPage() {
     }
   };
 
+  // Validate email format
+  const validateEmail = (email) => {
+    if (!emailRegex.test(email)) {
+      setEmailError("Email is invalid");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  // Password validation function
+  const validatePassword = (password) => {
+    if (!passwordRegex.test(password)) {
+      setPasswordError(
+        "Password must be at least 8 characters, contain at least one uppercase letter, one lowercase letter, and one special character."
+      );
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  // Confirm password validation
+  const validateConfirmPassword = (password, confirmPassword) => {
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match.");
+    } else {
+      setConfirmPasswordError("");
+    }
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate all fields
+    validateEmail(formData.email);
+    validatePassword(formData.password);
+    validateConfirmPassword(formData.password, formData.confirmPassword);
+
+    // If there are validation errors, prevent form submission
+    if (emailError || passwordError || confirmPasswordError) {
+      return;
+    }
 
     // Check if the user already exists
     const userExists = await checkIfUserExists(formData.email);
@@ -135,9 +187,14 @@ function SignupPage() {
                 label="Email Address"
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateEmail(e.target.value); // Validate email on change
+                }}
                 required
                 type="email"
+                helperText={emailError}
+                error={!!emailError}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -170,9 +227,14 @@ function SignupPage() {
                 label="Password"
                 name="password"
                 value={formData.password}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  validatePassword(e.target.value); // Validate password on change
+                }}
                 required
                 type="password"
+                helperText={passwordError}
+                error={!!passwordError}
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -198,46 +260,59 @@ function SignupPage() {
               />
             </Grid2>
 
-            {/* Link to Sign In Page */}
-            <Grid2 xs={12} sx={{ textAlign: "center" }}>
-              <Typography variant="body2">
-                Already have an account?{" "}
-                <Link
-                  to="/signin"
-                  component={Link}
-                  sx={{
-                    fontSize: "14px",
-                    color: "#2E1B57",
-                    textDecoration: "none",
-                    "&:hover": {
-                      textDecoration: "underline",
-                      color: "#1565c0",
-                    },
-                  }}
-                >
-                  Sign In
-                </Link>
-              </Typography>
+            {/* Confirm Password Field */}
+            <Grid2 xs={12}>
+              <TextField
+                fullWidth
+                label="Confirm Password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={(e) => {
+                  handleChange(e);
+                  validateConfirmPassword(formData.password, e.target.value); // Validate confirm password
+                }}
+                required
+                type="password"
+                helperText={confirmPasswordError}
+                error={!!confirmPasswordError}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon sx={{ color: "#1976d2" }} />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                sx={{
+                  backgroundColor: "#fafafa",
+                  borderRadius: "8px",
+                  "& .MuiInputBase-root": {
+                    borderRadius: "8px",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#1976d2",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#1565c0",
+                  },
+                }}
+              />
             </Grid2>
 
-            {/* Sign Up Button in a Separate Row */}
+            {/* Sign Up Button */}
             <Grid2 xs={12}>
-              {/* <br></br>
-              <br></br> */}
-
               <Button
                 type="submit"
                 variant="contained"
-                // fullWidth
                 color="primary"
                 sx={{
                   padding: "12px",
                   borderRadius: "8px",
                   fontWeight: "bold",
                   fontSize: "16px",
-                  marginLeft: '120px',
-                  // minWidth:'60px',
-                  marginRight:'108px',
+                  marginLeft: "120px",
+                  marginRight: "108px",
                   "&:hover": {
                     backgroundColor: "#1565c0",
                   },
