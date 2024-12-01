@@ -4,7 +4,8 @@ dotenv.config(); // Load environment variables at the very top
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import configMongoDb from './mongoConfig.js';
-import authRoutes from './routes/authRoutes.js'
+import authRoutes from './routes/authRoute.js'
+import bookRoutes from './routes/booksRoute.js'
 import cors from 'cors'
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors({
 configMongoDb(); // Initialize DB connection
 
 app.use('/api/auth', authRoutes)
+app.use('/api/book', bookRoutes)
 
 app.listen(3000, () => {
   console.log('Server running at http://localhost:3000');

@@ -20,7 +20,8 @@ import AddToCart from "../components/AddToCart";
 const ViewBook = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
-  const [authenticated, setAuthenticated] = useState('false');
+  const [authenticated, setAuthenticated] = useState("false");
+  const [genre, setGenre] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const checkAuth = async () => {
@@ -48,7 +49,13 @@ const ViewBook = () => {
           `https://www.googleapis.com/books/v1/volumes/${id}?key=AIzaSyCkS0j6hAV0oA1H4CyBVWJhk5yDN-g8KXw`
         )
         .then((res) => {
-          setBook(res.data);
+          const book = res.data;
+          setBook(book);
+          setGenre(
+            book.volumeInfo.categories
+              ? book.volumeInfo.categories[0]
+              : "History"
+          );
         });
     } catch (error) {
       console.error("Error fetching book data:", error);
@@ -58,7 +65,6 @@ const ViewBook = () => {
   useEffect(() => {
     getBook();
   }, [id]);
-
 
   if (!book) {
     return (
@@ -90,8 +96,8 @@ const ViewBook = () => {
     "https://images.unsplash.com/photo-1551300329-b91a61fa5ebe?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
   if (!authenticated) {
-    console.log('not authenticated')
-    return <Loading />
+    console.log("not authenticated");
+    return <Loading />;
   }
   return (
     <>
@@ -171,8 +177,7 @@ const ViewBook = () => {
           </Box>
         )}
 
-        {/* Carousal Section */}
-        <BookCarousal currentBook={book} />
+        <BookCarousal query={genre} />
 
         {/* Social Links Section */}
         <Grid2 container spacing={4} sx={{ mt: 4 }}>
