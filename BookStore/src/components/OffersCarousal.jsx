@@ -1,8 +1,5 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { Button } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { styled } from '@mui/system';  // MUI v5 styled API
 
 // Styled Components
@@ -24,7 +21,6 @@ const SlideContent = styled('div')({
   color: '#333',
 });
 
-
 const OffersCarousal = () => {
   const settings = {
     infinite: true,
@@ -34,7 +30,8 @@ const OffersCarousal = () => {
     speed: 15000,
     autoplaySpeed: 2000,
     cssEase: 'linear',
-    pauseOnHover: true, // Pause carousel on hover
+    pauseOnHover: true,  // Pause carousel on hover
+    arrows: false,  // Disable arrows
   };
 
   return (

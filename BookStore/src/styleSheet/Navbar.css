@@ -1,4 +1,55 @@
-.toolbar{
+/* Navbar.css */
+
+.navbarContainer {
+    background-color: #333;
+  }
+  
+  .navbarTitle {
+    flex-grow: 1;
+    color: white;
+  }
+  
+  .searchForm {
+    display: flex;
+    margin-right: 3rem;
+  }
+  
+  .searchInput {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+  
+  .searchInput .MuiInputBase-root {
+    color: #000;
+  }
+  
+  .searchInput .MuiOutlinedInput-notchedOutline {
+    border-color: #888;
+  }
+  
+  .searchInput:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #FF0000;
+  }
+  
+  .searchInput.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #FF0000;
+  }
+  
+  .navbarActions {
     display: flex;
     align-items: center;
-}
+  }
+  
+  .navbarUser {
+    margin-right: 2rem;
+    color: white;
+  }
+  
+  .navbarLink {
+    color: white;
+    text-decoration: none;
+    margin-right: 12px;
+  }
+  

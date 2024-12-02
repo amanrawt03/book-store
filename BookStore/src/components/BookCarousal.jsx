@@ -20,7 +20,7 @@ const BookCarousal = ({ query }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (query !== "New-arrivals" && query !== "E-books") {
+    if (query !== "New-arrivals" && query !== "E-books" && query !== 'Comic-books') {
       setCarousalName("Similar Books");
     } else {
       setCarousalName(query);
@@ -126,8 +126,8 @@ const BookCarousal = ({ query }) => {
                     fontWeight: "bold",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    marginTop: "10px",
+                    textOverflow: "ellipsis",                                                                                                       
+                    marginTop: "10px",                        
                   }}
                 >
                   {book.volumeInfo.title}
@@ -144,7 +144,7 @@ const BookCarousal = ({ query }) => {
                   color="textSecondary"
                   sx={{ marginLeft: "auto", marginTop: "10px" }}
                 >
-                  <CurrencyRupeeIcon fontSize="small" />
+                  <CurrencyRupeeIcon fontSize="small" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
                   {book.volumeInfo.pageCount === 0
                     ? 55
                     : book.volumeInfo.pageCount}

@@ -16,12 +16,13 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { Delete as DeleteIcon } from "@mui/icons-material";
-import {  remove_book, update_quantity } from '../slice/cartSlice';
+import { remove_book, update_quantity } from '../slice/cartSlice';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 const ViewCartPage = () => {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.cartArray);
+
   // If the cart is empty, display a friendly message
   if (cart.length === 0) {
     return (
@@ -97,13 +98,14 @@ const ViewCartPage = () => {
                   <TableCell>{item.volumeInfo.authors?.[0] || "Unknown"}</TableCell>
                   <TableCell>
                     <Typography variant="body2">
-                      <CurrencyRupeeIcon sx={{fontSize:'16px'}}/>{price}
+                      <CurrencyRupeeIcon sx={{ fontSize: '16px' }} />
+                      {price}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Button
                       variant="outlined"
-                      color="primary"
+                      color="primary" // Use primary color from the theme (Navbar color)
                       onClick={() => handleDecreaseQuantity(item.id)}
                       sx={{ minWidth: '15px', marginRight: 1 }}
                     >
@@ -121,7 +123,7 @@ const ViewCartPage = () => {
                     />
                     <Button
                       variant="outlined"
-                      color="primary"
+                      color="primary" // Use primary color from the theme (Navbar color)
                       onClick={() => handleIncreaseQuantity(item.id)}
                       sx={{ minWidth: 30 }}
                     >
@@ -130,7 +132,8 @@ const ViewCartPage = () => {
                   </TableCell>
                   <TableCell>
                     <Typography variant="body2">
-                      <CurrencyRupeeIcon sx={{fontSize:'18px'}}/>{totalPrice.toFixed(2)}
+                      <CurrencyRupeeIcon sx={{ fontSize: '18px' }} />
+                      {totalPrice.toFixed(2)}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -146,10 +149,10 @@ const ViewCartPage = () => {
       </TableContainer>
 
       <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
-        <Typography variant="h6">Total: <CurrencyRupeeIcon sx={{fontSize:'22px'}}/>{calculateTotal()}</Typography>
+        <Typography variant="h6">Total: <CurrencyRupeeIcon sx={{ fontSize: '22px' }} />{calculateTotal()}</Typography>
         <Button
           variant="contained"
-          color="primary"
+          color="primary" // Use primary color from the theme (Navbar color)
           sx={{ padding: "10px 20px" }}
           onClick={() => window.location.href = '/'} // Navigate to checkout page
         >

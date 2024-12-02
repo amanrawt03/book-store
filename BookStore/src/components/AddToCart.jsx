@@ -3,10 +3,12 @@ import { Button, Box, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Assuming you want to redirect on "Buy Now"
 import { add_book, update_quantity } from "../slice/cartSlice";
 import { useDispatch } from "react-redux";
-const AddToCart = ({book}) => {
+import '../styleSheet/AddToCart.css'
+
+const AddToCart = ({ book }) => {
   const [quantity, setQuantity] = useState(1); // Default quantity set to 1
   const navigate = useNavigate(); // Hook to navigate on "Buy Now"
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleQuantityChange = (e) => {
     const value = e.target.value;
@@ -15,28 +17,16 @@ const AddToCart = ({book}) => {
   };
 
   const handleAddToCart = () => {
-    dispatch(add_book({newBook:book, quantity:quantity}))
+    dispatch(add_book({ newBook: book, quantity: quantity }));
   };
-
 
   const handleBuyNow = () => {
     navigate("/checkout"); // Assuming "/checkout" is the route for checkout
   };
 
   return (
-    <Box
-      sx={{
-        width: "300px", // Width of the box
-        padding: "20px",
-        borderRadius: "12px", // Rounded borders
-        boxShadow: 3,
-        backgroundColor: "#fff",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Typography variant="h6" sx={{ marginBottom: "16px" }}>
+    <Box className="addToCartContainer">
+      <Typography variant="h6" className="addToCartTitle">
         Add to Cart
       </Typography>
 
@@ -46,32 +36,28 @@ const AddToCart = ({book}) => {
         type="number"
         value={quantity}
         onChange={handleQuantityChange}
-        sx={{ width: "100%", marginBottom: "16px" }}
+        className="quantityInput"
         inputProps={{ min: 1 }} // Ensure the input cannot be less than 1
       />
 
       {/* Add to Cart Button */}
       <Button
         variant="contained"
-        color="primary"
+        color="primary" // Using the primary color from the theme (Navbar color)
         fullWidth
         onClick={handleAddToCart}
-        sx={{ padding: "10px", marginBottom: "8px" }}
+        className="addToCartButton"
         disabled={quantity < 1} // Disable button if quantity is invalid
       >
         Add to Cart
       </Button>
 
-      {/* Buy now Button */}
+      {/* Buy Now Button */}
       <Button
         variant="contained"
         fullWidth
         onClick={handleBuyNow}
-        sx={{
-          padding: "10px",
-          marginTop: "15px",
-          backgroundColor: "#FF0000", // Red color for the "Buy Now" button
-        }}
+        className="buyNowButton"
         disabled={quantity < 1} // Disable button if quantity is invalid
       >
         Buy Now

@@ -27,7 +27,7 @@ const emailRegex =
 
 function SignupPage() {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -45,19 +45,6 @@ function SignupPage() {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  // Check if the user already exists
-  const checkIfUserExists = async (email) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/userInfo?email=${email}`
-      );
-      return response.data.length > 0;
-    } catch (error) {
-      console.error("Error checking user:", error);
-      return false;
-    }
   };
 
   // Validate email format
@@ -103,32 +90,61 @@ function SignupPage() {
       return;
     }
 
-    // Check if the user already exists
-    const userExists = await checkIfUserExists(formData.email);
+    // Send the signup data to the server (using the same POST API as in the login)
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signup", // Changed API endpoint
+        formData,
+        { withCredentials: true } // Ensuring the credentials are sent with the request
+      );
 
-    if (userExists) {
-      setError("User with this email already exists.");
-    } else {
-      // If user doesn't exist, create the new user
-      try {
-        await axios.post("http://localhost:5000/userInfo", formData);
-        dispatch(login({ username: formData.name }));
-        navigate("/");
-      } catch (error) {
-        console.error("Error during user registration:", error);
-        setError("An error occurred during registration.");
-      }
+      // If signup is successful, dispatch the login action
+      const { user } = response.data;
+      dispatch(login({ username: user.username }));
+
+      // Navigate to the homepage or desired page after successful signup
+      navigate("/");
+    } catch (error) {
+      console.error("Error during user registration:", error);
+      setError("An error occurred during registration.");
     }
   };
 
   return (
-    <Container maxWidth="xs" sx={{ mt: 10 }}>
-      <Paper elevation={4} sx={{ padding: 4, borderRadius: 3 }}>
+    <Container
+      maxWidth="xs"
+      sx={{
+        mt:'20px',
+        padding: "30px",
+        backgroundImage: `url("https://i0.wp.com/stanzaliving.wpcomstaging.com/wp-content/uploads/2024/05/9b628-book-stores-in-delhi.jpg?fit=1000%2C667&ssl=1")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "95vh",
+      }}
+    >
+      <Paper elevation={4} sx={{ padding: 4, borderRadius: 3, backgroundColor: "rgba(255, 255, 255, 0.7)", paddingBottom:"20px" }}>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{
+            fontWeight: "bold",
+            color: "#4B9F72",
+            mb: "25px",
+          }}
+        >
+          Pustak Viman
+        </Typography>
+
         <Typography
           variant="h5"
           align="center"
           gutterBottom
-          sx={{ fontWeight: "bold", color: "#1976d2" }}
+          sx={{
+            fontWeight: "bold",
+            color: "#4B9F72",
+            mb: "25px",
+          }}
         >
           Sign Up
         </Typography>
@@ -151,30 +167,30 @@ function SignupPage() {
               <TextField
                 fullWidth
                 label="Full Name"
-                name="name"
-                value={formData.name}
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
                 required
                 slotProps={{
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <PersonIcon sx={{ color: "#1976d2" }} />
+                        <PersonIcon sx={{ color: "#4B9F72" }} />
                       </InputAdornment>
                     ),
                   },
                 }}
                 sx={{
-                  backgroundColor: "#fafafa",
+                  backgroundColor: "#fff5e1",
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1976d2",
+                    borderColor: "#4B9F72",
                   },
                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1565c0",
+                    borderColor: "#3b6b47",
                   },
                 }}
               />
@@ -199,22 +215,22 @@ function SignupPage() {
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <EmailIcon sx={{ color: "#1976d2" }} />
+                        <EmailIcon sx={{ color: "#4B9F72" }} />
                       </InputAdornment>
                     ),
                   },
                 }}
                 sx={{
-                  backgroundColor: "#fafafa",
+                  backgroundColor: "#fff5e1",
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1976d2",
+                    borderColor: "#4B9F72",
                   },
                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1565c0",
+                    borderColor: "#3b6b47",
                   },
                 }}
               />
@@ -239,22 +255,22 @@ function SignupPage() {
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon sx={{ color: "#1976d2" }} />
+                        <LockIcon sx={{ color: "#4B9F72" }} />
                       </InputAdornment>
                     ),
                   },
                 }}
                 sx={{
-                  backgroundColor: "#fafafa",
+                  backgroundColor: "#fff5e1",
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1976d2",
+                    borderColor: "#4B9F72",
                   },
                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1565c0",
+                    borderColor: "#3b6b47",
                   },
                 }}
               />
@@ -279,22 +295,22 @@ function SignupPage() {
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon sx={{ color: "#1976d2" }} />
+                        <LockIcon sx={{ color: "#4B9F72" }} />
                       </InputAdornment>
                     ),
                   },
                 }}
                 sx={{
-                  backgroundColor: "#fafafa",
+                  backgroundColor: "#fff5e1",
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1976d2",
+                    borderColor: "#4B9F72",
                   },
                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1565c0",
+                    borderColor: "#3b6b47",
                   },
                 }}
               />
@@ -313,8 +329,9 @@ function SignupPage() {
                   fontSize: "16px",
                   marginLeft: "120px",
                   marginRight: "108px",
+                  backgroundColor: "#4B9F72",
                   "&:hover": {
-                    backgroundColor: "#1565c0",
+                    backgroundColor: "#3b6b47",
                   },
                   "&:disabled": {
                     backgroundColor: "#e0e0e0",
@@ -326,6 +343,12 @@ function SignupPage() {
             </Grid2>
           </Grid2>
         </form>
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Already have an account?{" "}
+          <Link to="/signin" style={{ textDecoration: "none", color: "#4B9F72" }}>
+            Sign In
+          </Link>
+        </Typography>
       </Paper>
     </Container>
   );

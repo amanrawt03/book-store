@@ -59,7 +59,7 @@ const signupFn = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 3600000,
-      sameSite: "Strict",
+      sameSite: "None",
     });
     return res
       .status(200)

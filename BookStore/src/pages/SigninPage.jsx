@@ -13,7 +13,7 @@ import {
 import { Email as EmailIcon, Lock as LockIcon } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../slice/userSlice'; // Redux action for login
 
 function SigninPage() {
@@ -53,13 +53,27 @@ function SigninPage() {
         setError(error.response?.data?.message || "An error occurred");
       });
   };
-  
-  
 
   return (
-    <Container maxWidth="xs" sx={{ mt: 10, padding:'100px' }}>
-      <Paper elevation={4} sx={{ padding: 4, borderRadius: 3 }}>
-        <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2", mb:'25px'}}>
+    <Container
+      maxWidth="xs"
+      sx={{
+        mt:'30px',
+        backgroundImage: `url("https://i0.wp.com/stanzaliving.wpcomstaging.com/wp-content/uploads/2024/05/9b628-book-stores-in-delhi.jpg?fit=1000%2C667&ssl=1")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '90vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Paper elevation={4} sx={{ padding: 4, borderRadius: 3, backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
+        <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#2C3E50", mb: '25px' }}>
+          Pustak Viman
+        </Typography>
+
+        <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#2C3E50", mb: '25px' }}>
           Sign In
         </Typography>
 
@@ -85,22 +99,22 @@ function SigninPage() {
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <EmailIcon sx={{ color: "#1976d2" }} />
+                        <EmailIcon sx={{ color: "#4B9F72" }} />
                       </InputAdornment>
                     ),
                   },
                 }}
                 sx={{
-                  backgroundColor: "#fafafa",
+                  backgroundColor: "#fff5e1",  // Soft off-white background
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1976d2",
+                    borderColor: "#4B9F72", // Greenish border
                   },
                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1565c0",
+                    borderColor: "#3b6b47", // Darker green on hover
                   },
                 }}
               />
@@ -120,22 +134,22 @@ function SigninPage() {
                   input: {
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon sx={{ color: "#1976d2" }} />
+                        <LockIcon sx={{ color: "#4B9F72" }} />
                       </InputAdornment>
                     ),
                   },
                 }}
                 sx={{
-                  backgroundColor: "#fafafa",
+                  backgroundColor: "#fff5e1", // Soft off-white background
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1976d2",
+                    borderColor: "#4B9F72", // Greenish border
                   },
                   "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#1565c0",
+                    borderColor: "#3b6b47", // Darker green on hover
                   },
                 }}
               />
@@ -148,11 +162,11 @@ function SigninPage() {
                 component={Link}
                 sx={{
                   fontSize: "14px",
-                  color: "#2E1B57",
+                  color: "#4B9F72",
                   textDecoration: "none",
                   "&:hover": {
                     textDecoration: "underline",
-                    color: "#1565c0",
+                    color: "#3b6b47",
                   },
                 }}
               >
@@ -167,15 +181,15 @@ function SigninPage() {
               type="submit"
               variant="contained"
               fullWidth
-              color="primary"
+              color="success" // Green color
               sx={{
-                mt:'10px',
+                mt: '10px',
                 padding: "10px",
                 borderRadius: "8px",
                 fontWeight: "bold",
                 fontSize: "16px",
                 "&:hover": {
-                  backgroundColor: "#1565c0",
+                  backgroundColor: "#3b6b47", // Darker green
                 },
                 "&:disabled": {
                   backgroundColor: "#e0e0e0",
