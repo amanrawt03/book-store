@@ -1,0 +1,61 @@
+/* Card Styles */
+.book-item-card {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    min-width: 60vw;
+    max-width: 60vw;
+  }
+  
+  .book-item-card:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Card Media (Image) Styles */
+  .book-item-card img {
+    width: 150px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin: 10px;
+  }
+  
+  /* Card Content Styles */
+  .book-item-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    min-height: 200px;
+  }
+  
+  /* Title Styling */
+  .book-item-title {
+    font-weight: bold;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Text Secondary Styles */
+  .book-item-text-secondary {
+    color: #6b6b6b;
+  }
+  
+  /* Add to Cart Button Styles */
+  .book-item-add-to-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+  
+  /* Price Styling */
+  .book-item-price {
+    display: flex;
+    align-items: center;
+  }
+  

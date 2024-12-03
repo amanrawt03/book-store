@@ -1,39 +1,5 @@
-/* In your CSS file */
+*{
+    margin: 0;padding: 0;
+    box-sizing: border-box;
+}
 
-/* Style for custom arrows */
-.custom-arrow {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-  }
-  
-  .custom-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
-  }
-  
-  /* Position the prev button on the left */
-  .prev-arrow {
-    position: absolute;
-    top: 50%;
-    left: 10px; /* Adjust for spacing from the left side */
-    transform: translateY(-50%);
-  }
-  
-  /* Position the next button on the right */
-  .next-arrow {
-    position: absolute;
-    top: 50%;
-    right: 10px; /* Adjust for spacing from the right side */
-    transform: translateY(-50%);
-  }
-  
-  /* Add some additional styling if needed */
-  .slick-prev, .slick-next {
-    display: none; /* Hide default arrows */
-  }
-  

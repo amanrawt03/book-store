@@ -19,7 +19,7 @@ const loginFn = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      httpOnly: true, // Makes the cookie accessible only to the server (prevents JS access)
+      httpOnly: false, // Makes the cookie accessible only to the server (prevents JS access)
       maxAge: 3600000, // Cookie expires after 1 hour
       sameSite: 'None', // Necessary for cross-origin requests
       secure: process.env.NODE_ENV === 'production', // Set to true for production (HTTPS required)
@@ -56,7 +56,7 @@ const signupFn = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       maxAge: 3600000,
       sameSite: "None",

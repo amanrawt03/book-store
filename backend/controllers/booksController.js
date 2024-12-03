@@ -1,32 +1,35 @@
 import axios from "axios";
+import client from '../config/redisConfig.js'
 
 // API URL and Key
 const apiUrl = "https://www.googleapis.com/books/v1/volumes";
-const key = "AIzaSyD-0-rF3KEGQHQcEPAPxDMM6fszvaLNjTk";
+const key = "AIzaSyDZM1wVAo6gCblQdxUjIcDlKqbXl6w31FM";
+// const key = "AIzaSyD-0-rF3KEGQHQcEPAPxDMM6fszvaLNjTk";
 
 // Function to implement retry logic with exponential backoff
-const fetchWithRetry = async (url, retries = 5, delay = 1000) => {
-  try {
-    const response = await axios.get(url);
-    return response; // Return successful response
-  } catch (error) {
-    if (error.response && error.response.status === 429 && retries > 0) {
-      const retryAfter = error.response.headers['retry-after'] || delay;
-      console.warn(`Rate limit exceeded. Retrying in ${retryAfter}ms...`);
-      // Wait for the retry time (either from header or default exponential backoff)
-      await new Promise(resolve => setTimeout(resolve, retryAfter));
-      return fetchWithRetry(url, retries - 1, delay * 2); // Exponential backoff
-    } else {
-      throw error; // For other errors or no retries left, throw the error
-    }
-  }
-};
+// const fetchWithRetry = async (url, retries = 5, delay = 1000) => {
+//   try {
+//     const response = await axios.get(url);
+//     return response; // Return successful response
+//   } catch (error) {
+//     if (error.response && error.response.status === 429 && retries > 0) {
+//       const retryAfter = error.response.headers['retry-after'] || delay;
+//       console.warn(`Rate limit exceeded. Retrying in ${retryAfter}ms...`);
+//       // Wait for the retry time (either from header or default exponential backoff)
+//       await new Promise(resolve => setTimeout(resolve, retryAfter));
+//       return fetchWithRetry(url, retries - 1, delay * 2); // Exponential backoff
+//     } else {
+//       throw error; // For other errors or no retries left, throw the error
+//     }
+//   }
+// };
 
 // getBooks function with rate-limited API calls
 const getBooks = async (req, res) => {
   try {
     const { query } = req.query;
-    let apiQuery = "";
+    let apiQuery = "";  
+    let books;
 
     // Build the query based on the provided query parameter
     if (query === "New-arrivals") {
@@ -41,14 +44,23 @@ const getBooks = async (req, res) => {
       apiQuery = `q=book&maxResults=40`;
     }
 
-    // Fetch books with retry mechanism for rate limiting
-    const response = await fetchWithRetry(`${apiUrl}?${apiQuery}&key=${key}`);
-
-    if (!response.data.items || response.data.items.length === 0) {
-      return res.status(404).json({ error: "No books found" });
+    if(client.isOpen){
+      books = await client.get('fetchedBooks')
     }
-
-    let books = response.data.items;
+    if(books){
+      console.log('cache hit')
+      books = JSON.parse(books)
+    }else{
+      console.log('cache miss')
+      let response = await axios(`${apiUrl}?${apiQuery}&key=${key}`);
+      if (!response.data.items || response.data.items.length === 0) {
+        return res.status(404).json({ error: "No books found" });
+      }
+      books = response.data.items;
+      if(client.isOpen){
+        await client.setEx('fetchedBooks', 10, JSON.stringify(books))
+      }
+    }
 
     // Sort books if the query is for "New-arrivals"
     if (query === "New-arrivals") {
@@ -80,7 +92,7 @@ const filterBooks = async (req, res) => {
       genre,
       sort,
     } = req.body;
-
+    let books;
     let apiQuery = `q=${query}`;
     if (genre) {
       apiQuery += `+subject:${genre}`;
@@ -88,14 +100,26 @@ const filterBooks = async (req, res) => {
     apiQuery += `&startIndex=${startIndex}&maxResults=${limit}`;
     apiQuery += `&key=${key}`;
 
-    // Fetch books with retry mechanism for rate limiting
-    const response = await fetchWithRetry(`${apiUrl}?${apiQuery}`);
+    if(client.isOpen){
+      books = await client.get('filterBooks')
+    }
+    if(books){
+      console.log('Cache hit')
+      books = JSON.parse(books)
+    }else{
+      console.log("cache miss")
+      let response = await axios.get(`${apiUrl}?${apiQuery}`);
 
     if (!response.data.items || response.data.items.length === 0) {
       return res.status(404).json({ error: "No books found" });
     }
 
-    let books = response.data.items;
+    books = response.data.items;
+    if(client.isOpen){
+      await client.setEx('filterBooks', 10, JSON.stringify(books))
+    }
+    }
+    
 
     // Sorting logic based on the provided sort order
     if (sort === "newToOld") {
@@ -114,7 +138,7 @@ const filterBooks = async (req, res) => {
 
     return res.status(200).json({
       books,
-      totalItems: response.data.totalItems || books.length,
+      totalItems: books.length,
     });
   } catch (error) {
     console.error("Error filtering books:", error.message);

@@ -1,0 +1,43 @@
+/* SigninPage.css */
+
+/* Container styles */
+.signin-container {
+    margin-top: 30px;
+    background-image: url("https://i0.wp.com/stanzaliving.wpcomstaging.com/wp-content/uploads/2024/05/9b628-book-stores-in-delhi.jpg?fit=1000%2C667&ssl=1");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Needed to apply the blur effect */
+  }
+
+.signin-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    z-index: -1; /* Ensure the blur stays behind the content */
+  }
+  
+  .signin-error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .signin-heading {
+    text-align: center;
+    font-weight:bolder;
+    color: #2C3E50;
+    margin-bottom: 25px;
+  }
+
+  
+ 

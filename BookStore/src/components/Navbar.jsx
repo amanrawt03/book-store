@@ -14,6 +14,7 @@ import {
   ShoppingCart as ShoppingCartIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
+import Cookies from 'js-cookie'
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../slice/userSlice";
 import { clear_cart } from "../slice/cartSlice";
@@ -43,6 +44,7 @@ const Navbar = () => {
 
   // Handle logout
   const handleLogout = () => {
+    Cookies.remove('token')
     dispatch(logout());
     dispatch(clear_cart());
   };
