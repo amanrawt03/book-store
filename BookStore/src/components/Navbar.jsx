@@ -25,7 +25,7 @@ import OffersCarousal from "./OffersCarousal";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => JSON.parse(state.user.username));
+  const user = useSelector((state) => state.user.username);
   const cart = useSelector((state) => state.cart.cartArray);
 
   // Debounced search handler
@@ -85,7 +85,7 @@ const Navbar = () => {
           {user ? (
             <>
               <Typography variant="body1" sx={{ marginRight: 2, color: "white" }}>
-                Hey, {user || "User"}
+                Hey, {`${user}` || "User"}
               </Typography>
               <IconButton
                 color="inherit"

@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import Address from '../models/addressModel.js'
 const loginFn = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -51,16 +51,7 @@ const signupFn = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
 
-    res.cookie("token", token, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 3600000,
-      sameSite: "None",
-    });
     return res
       .status(200)
       .json({ message: "Successfully Created", user: newUser });
@@ -69,4 +60,35 @@ const signupFn = async (req, res) => {
   }
 };
 
-export { loginFn, signupFn };
+const checkAddress = async(req, res)=>{
+  try {
+
+    const {username} = req.body
+    const user = await User.findOne({username})
+    if(!user)return res.status(400).json({message:"user not found"})
+    const userHasAddress = await Address.find({user: user._id})
+  if(userHasAddress.length === 0)return res.status(400).json({message:"User has not added any address yet."})
+    return res.status(200).json({message:"Address available", existingAddresses:userHasAddress})
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({error:error.message})
+
+  }
+}
+
+const addAddress = async(req,res)=>{
+  try {
+    const {username, type, street, city, state, postalCode, country} = req.body
+    // find user with username 
+    const user = await User.findOne({username})
+    if(!user)return res.status(400).json({message:"User not exists"})
+      const newAddress = await Address.create({
+        user:user._id, type, street, city,state, postalCode, country
+    })
+    return res.status(200).json({newAddress:newAddress, message:"Address added successfully"})
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export { loginFn, signupFn, checkAddress, addAddress };

@@ -7,8 +7,8 @@ import "@fontsource/roboto/700.css";
 // Import slick carousel's CSS
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import "./App.css";
+
 import HomePage from "./pages/HomePage";
 import LostPage from "./pages/LostPage";
 import ViewBookPage from "./pages/ViewBookPage";
@@ -17,21 +17,69 @@ import SignupPage from "./pages/SignupPage";
 import SigninPage from "./pages/SigninPage";
 import ViewCartPage from "./pages/ViewCartPage";
 import SearchedBooksPage from "./pages/SearchedBooksPage";
-import ProtectedRoutes from "./protectedRoutes";
+import OrderPlacement from './components/checkout/OrderPlacement'
+// import ProtectedRoutes from "./protectedRoutes";
+import { ToastContainer, toast } from "react-toastify";
+import CheckoutPage from "./pages/CheckoutPage";
 function App() {
-  return (
-    <Routes>
-      <Route exact path="/" element={<HomePage />} />
-      <Route exact path="signup" element={<SignupPage />} />
-      <Route exact path="signin" element={<SigninPage />} />
-      <Route exact path="*" element={<LostPage />} />
+  const showToast = () => {
+    toast.success("This is a success message!", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
-      <Route element={<ProtectedRoutes />}>
-        <Route exact path="searchedBooks" element={<SearchedBooksPage />} />
-        <Route exact path="cart" element={<ViewCartPage />} />
-        <Route exact path="book/:id" element={<ViewBookPage />} />
-      </Route>
-    </Routes>
+  return (
+    <>
+      <Routes>
+        showToast={showToast}
+        <Route exact path="/" element={<HomePage showToast={showToast} />} />
+        <Route
+          exact
+          path="signup"
+          element={<SignupPage showToast={showToast} />}
+        />
+        <Route
+          exact
+          path="signin"
+          element={<SigninPage showToast={showToast} />}
+        />
+        <Route exact path="*" element={<LostPage showToast={showToast} />} />
+        {/* <Route element={<ProtectedRoutes />}> */}
+        <Route
+          exact
+          path="searchedBooks"
+          element={<SearchedBooksPage showToast={showToast} />}
+        />
+        <Route
+          exact
+          path="cart"
+          element={<ViewCartPage showToast={showToast} />}
+        />
+        <Route
+          exact
+          path="checkout"
+          element={<CheckoutPage showToast={showToast} />}
+        />
+        <Route
+          exact
+          path="book/:id"
+          element={<ViewBookPage showToast={showToast} />}
+        />
+        <Route
+          exact
+          path="/orderPlacement"
+          element={<OrderPlacement showToast={showToast} />}
+        />
+        
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 

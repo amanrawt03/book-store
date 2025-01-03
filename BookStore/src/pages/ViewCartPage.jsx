@@ -14,15 +14,17 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
+import {useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import { remove_book, update_quantity } from '../slice/cartSlice';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 const ViewCartPage = () => {
+  const navigate  = useNavigate()
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.cartArray);
-
+  
   // If the cart is empty, display a friendly message
   if (cart.length === 0) {
     return (
@@ -105,7 +107,7 @@ const ViewCartPage = () => {
                   <TableCell>
                     <Button
                       variant="outlined"
-                      color="primary" // Use primary color from the theme (Navbar color)
+                      color="primary"
                       onClick={() => handleDecreaseQuantity(item.id)}
                       sx={{ minWidth: '15px', marginRight: 1 }}
                     >
@@ -123,7 +125,7 @@ const ViewCartPage = () => {
                     />
                     <Button
                       variant="outlined"
-                      color="primary" // Use primary color from the theme (Navbar color)
+                      color="primary"
                       onClick={() => handleIncreaseQuantity(item.id)}
                       sx={{ minWidth: 30 }}
                     >
@@ -152,9 +154,9 @@ const ViewCartPage = () => {
         <Typography variant="h6">Total: <CurrencyRupeeIcon sx={{ fontSize: '22px' }} />{calculateTotal()}</Typography>
         <Button
           variant="contained"
-          color="primary" // Use primary color from the theme (Navbar color)
+          color="primary"
           sx={{ padding: "10px 20px" }}
-          onClick={() => window.location.href = '/'} // Navigate to checkout page
+          onClick={() => navigate('/checkout')}
         >
           Proceed to Checkout
         </Button>

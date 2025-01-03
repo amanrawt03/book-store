@@ -3,7 +3,7 @@ import { Button, Box, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Assuming you want to redirect on "Buy Now"
 import { add_book, update_quantity } from "../slice/cartSlice";
 import { useDispatch } from "react-redux";
-import '../styleSheet/AddToCart.css'
+import "../styleSheet/AddToCart.css";
 
 const AddToCart = ({ book }) => {
   const [quantity, setQuantity] = useState(1); // Default quantity set to 1

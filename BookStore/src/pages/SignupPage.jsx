@@ -103,7 +103,7 @@ function SignupPage() {
       dispatch(login({ username: user.username }));
 
       // Navigate to the homepage or desired page after successful signup
-      navigate("/");
+      navigate("/signin");
     } catch (error) {
       console.error("Error during user registration:", error);
       setError("An error occurred during registration.");
@@ -124,14 +124,10 @@ function SignupPage() {
     >
       <Paper elevation={4} sx={{ padding: 4, borderRadius: 3, backgroundColor: "rgba(255, 255, 255, 0.7)", paddingBottom:"20px" }}>
         <Typography
-          variant="h4"
+          variant="h3"
           align="center"
           gutterBottom
-          sx={{
-            fontWeight: "bold",
-            color: "#4B9F72",
-            mb: "25px",
-          }}
+          sx={{color: "#2C3E50"}}
         >
           Pustak Viman
         </Typography>
@@ -140,11 +136,9 @@ function SignupPage() {
           variant="h5"
           align="center"
           gutterBottom
-          sx={{
-            fontWeight: "bold",
-            color: "#4B9F72",
-            mb: "25px",
-          }}
+          sx={{ fontWeight: "bold", color: "#2C3E50", mb: "25px" }}
+
+
         >
           Sign Up
         </Typography>
@@ -183,6 +177,7 @@ function SignupPage() {
                 sx={{
                   backgroundColor: "#fff5e1",
                   borderRadius: "8px",
+                  width:'340px',
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
                   },
@@ -222,6 +217,7 @@ function SignupPage() {
                 }}
                 sx={{
                   backgroundColor: "#fff5e1",
+                  width:'340px',
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
@@ -262,6 +258,7 @@ function SignupPage() {
                 }}
                 sx={{
                   backgroundColor: "#fff5e1",
+                  width:'340px',
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
@@ -302,6 +299,7 @@ function SignupPage() {
                 }}
                 sx={{
                   backgroundColor: "#fff5e1",
+                  width:'340px',
                   borderRadius: "8px",
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",

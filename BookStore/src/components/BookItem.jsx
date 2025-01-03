@@ -5,11 +5,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { useSelector, useDispatch } from 'react-redux';
 import { add_book } from '../slice/cartSlice';
-
+import {toast} from 'react-toastify'
 const BookItem = ({ bookData }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector(state => JSON.parse(state.user.username));
+  const user = useSelector(state => state.user.username);
 
   const { volumeInfo } = bookData;
   const { title, authors, imageLinks, pageCount, publishedDate } = volumeInfo;
@@ -21,7 +21,7 @@ const BookItem = ({ bookData }) => {
   const handleAddToCart = (e) => {
     e.stopPropagation();
     if (!user) {    
-      alert("Login first");
+      toast.error("Login first");
     } else {
       dispatch(add_book({ newBook: bookData, quantity:1 }));
     }
