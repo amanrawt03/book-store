@@ -5,9 +5,6 @@ const apiUrl = "https://www.googleapis.com/books/v1/volumes";
 const key = 
 
 
-// const key = "AIzaSyD-0-rF3KEGQHQcEPAPxDMM6fszvaLNjTk";
-
-
 // Function to implement retry logic with exponential backoff
 const fetchWithRetry = async (url, retries = 5, delay = 1000) => {
   try {
@@ -129,8 +126,7 @@ export { getBooks, filterBooks };
 
 // // API URL and Key
 // const apiUrl = "https://www.googleapis.com/books/v1/volumes";
-// const key = "AIzaSyD-0-rF3KEGQHQcEPAPxDMM6fszvaLNjTk";
-// // const key = "AIzaSyD-0-rF3KEGQHQcEPAPxDMM6fszvaLNjTk";
+// const key =
 
 // // getBooks function with rate-limited API calls
 // const getBooks = async (req, res) => {
