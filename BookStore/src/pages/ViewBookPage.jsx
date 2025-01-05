@@ -46,7 +46,7 @@ const ViewBook = () => {
     try {
       axios
         .get(
-          `https://www.googleapis.com/books/v1/volumes/${id}?key=AIzaSyCkS0j6hAV0oA1H4CyBVWJhk5yDN-g8KXw`
+          `https://www.googleapis.com/books/v1/volumes/${id}?key=`
         )
         .then((res) => {
           const book = res.data;
