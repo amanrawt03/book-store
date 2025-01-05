@@ -2,7 +2,7 @@ import axios from "axios";
 
 // API URL and Key
 const apiUrl = "https://www.googleapis.com/books/v1/volumes";
-const key = "AIzaSyBqcZHHEWvVTdiy1nQyElnDIQot43pvuNs";
+const key = 
 
 
 // const key = "AIzaSyD-0-rF3KEGQHQcEPAPxDMM6fszvaLNjTk";
